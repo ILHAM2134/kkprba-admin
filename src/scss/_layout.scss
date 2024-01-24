@@ -1,0 +1,16 @@
+.wrapper {
+  width: 100%;
+  @include ltr-rtl('padding-left', var(--cui-sidebar-occupy-start, 0));
+  will-change: auto;
+  @include transition(padding 0.15s);
+}
+
+body::-webkit-scrollbar {
+  width: 1px;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
