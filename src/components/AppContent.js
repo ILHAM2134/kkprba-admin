@@ -4,8 +4,17 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
+import { useDispatch, useSelector } from 'react-redux'
 
 const AppContent = () => {
+  const { isLoggedIn } = useSelector((state) => state)
+
+  console.log({ isLoggedIn })
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />
+  }
+
   return (
     <CContainer lg>
       <Suspense fallback={<CSpinner color="primary" />}>
@@ -23,6 +32,7 @@ const AppContent = () => {
               )
             )
           })}
+
           <Route path="/" element={<Navigate to="dashboard" replace />} />
         </Routes>
       </Suspense>

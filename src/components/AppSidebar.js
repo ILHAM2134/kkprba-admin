@@ -6,8 +6,11 @@ import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import { logoNegative } from 'src/assets/brand/logo-negative'
-import { sygnet } from 'src/assets/brand/sygnet'
+// import { logoNegative } from 'src/assets/brand/logo-negative'
+// import { sygnet } from 'src/assets/brand/sygnet'
+
+import bigLogo from 'src/assets/brand/logo-dark.svg'
+import smallLogo from 'src/assets/brand/logo.png'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
@@ -24,9 +27,12 @@ const AppSidebar = () => {
   return (
     <CSidebar position="fixed" narrow={sidebarUnfoldable}>
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
+        {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
 
-        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
+        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
+        <img alt="logo big" className="sidebar-brand-full" src={bigLogo} height={35} />
+
+        <img alt="logo small" className="sidebar-brand-narrow" src={smallLogo} height={35} />
       </CSidebarBrand>
 
       <CSidebarNav className="sidebar-nav">
