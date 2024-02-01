@@ -1,19 +1,32 @@
-import React, { Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import React, { Suspense, useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
-import { useDispatch, useSelector } from 'react-redux'
+import { checkIfTokenIsValid } from 'src/utils'
+import { notification } from 'antd'
 
 const AppContent = () => {
-  const { isLoggedIn } = useSelector((state) => state)
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  console.log({ isLoggedIn })
+  useEffect(() => {
+    const checkToken = async () => {
+      const isTokenValid = await checkIfTokenIsValid()
 
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />
-  }
+      if (isTokenValid !== 200) {
+        notification.error({
+          key: 'invalidToken',
+          message: 'Sesion anda berakhir, silahkan login ulang',
+        })
+
+        navigate('/login')
+      }
+    }
+
+    checkToken()
+  }, [location])
 
   return (
     <CContainer lg>

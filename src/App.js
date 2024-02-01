@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+
 import './scss/style.scss'
 
 const loading = (

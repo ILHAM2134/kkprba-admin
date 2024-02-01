@@ -22,8 +22,6 @@ const AppSidebar = () => {
   const dispatch = useDispatch()
   const sidebarUnfoldable = useSelector((state) => state.sidebarUnfoldable)
 
-  console.log({ sidebarUnfoldable })
-
   return (
     <CSidebar position="fixed" narrow={sidebarUnfoldable}>
       <CSidebarBrand className="d-none d-md-flex" to="/">
