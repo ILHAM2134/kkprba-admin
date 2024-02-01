@@ -17,14 +17,5 @@ module.exports = {
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    'no-console': 'on',
-    'no-restricted-syntax': [
-      'error',
-      {
-        selector:
-          "CallExpression[callee.object.name='console'][callee.property.name!=/^(log|warn|error|info|trace)$/]",
-        message: 'Unexpected property on console object was called',
-      },
-    ],
   },
 }
