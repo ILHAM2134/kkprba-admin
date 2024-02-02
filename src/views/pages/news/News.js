@@ -1,12 +1,9 @@
 'use client'
-import React, { useEffect, useLayoutEffect, useState } from 'react'
-import { CCard, CCardHeader, CCardBody, CCardFooter, CButton } from '@coreui/react'
-import { DocsLink } from 'src/components'
+import React, { useEffect, useState } from 'react'
+import { CButton, CCard, CCardHeader } from '@coreui/react'
 
-import { Checkbox, Form, Input, Select, Spin, Upload, message } from 'antd'
+import { Form, Spin, message } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
-import CIcon from '@coreui/icons-react'
-import { cilInbox } from '@coreui/icons'
 import { axios } from 'src/utils'
 import FormNews from './FormNews'
 import TableListNews from './TableListNews'
@@ -27,17 +24,9 @@ const getBase64 = (img, callback) => {
   reader.addEventListener('load', () => callback(reader.result))
   reader.readAsDataURL(img)
 }
-const beforeUpload = (file) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!')
-  }
-  return isJpgOrPng
-}
 
 const News = () => {
   const [formNews] = Form.useForm()
-  const [formCategories] = Form.useForm()
   const [loadingPage, setLoadingPage] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -46,9 +35,25 @@ const News = () => {
   const [dataModal, setDataModal] = useState({})
 
   const [dataCategories, setDataCategories] = useState([])
-  const [modalCategoriesOpen, setModalCategoriesOpen] = useState(false)
+  const [isTypeAdd, setIsTypeAdd] = useState(true)
 
-  const [imageUrl, setImageUrl] = useState()
+  const [imageUrl, setImageUrl] = useState('')
+  const [imgFile, setImgFile] = useState('')
+  const [tag, setTag] = useState('fetch')
+
+  const [totalData, setTotalData] = useState(0)
+  const [page, setPage] = useState(1)
+  const [pageLimit, setPageLimit] = useState(10)
+
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!')
+    }
+
+    setImgFile(file)
+    return isJpgOrPng
+  }
 
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
@@ -88,49 +93,85 @@ const News = () => {
   )
 
   useEffect(() => {
-    setLoadingPage(true)
+    if (tag === 'fetch') {
+      setLoadingPage(true)
 
-    axios('/blog')
-      .then((res) => {
-        const data = res?.data?.data?.map((item) => ({
-          key: item?.id,
-          title: item?.title,
-          short_title: item?.short_title,
-          is_carousel: item?.is_carousel,
-          description: item?.description,
-          image: item?.image,
-          categories: item?.categories,
-        }))
+      axios('/blog')
+        .then((res) => {
+          const data = res?.data?.data?.map((item) => ({
+            key: item?.id,
+            title: item?.title,
+            short_title: item?.short_title,
+            is_carousel: item?.is_carousel,
+            description: item?.description,
+            image: item?.image,
+            categories: item?.categories,
+          }))
 
-        setDataTable(data || [])
-      })
-      .catch((error) => {})
-      .finally(() => {
-        setLoadingPage(false)
-      })
+          setDataTable(data || [])
+        })
+        .catch((error) => {})
+        .finally(() => {
+          setLoadingPage(false)
+        })
 
-    axios('/blog-category')
-      .then((res) => {
-        if (res.status === 200) {
-          setDataCategories(res?.data?.data || [])
-        }
-      })
-      .catch((error) => {})
-      .finally(() => {
-        setLoadingPage(false)
-      })
-  }, [])
+      axios('/blog-category')
+        .then((res) => {
+          if (res.status === 200) {
+            setDataCategories(res?.data?.data || [])
+          }
+        })
+        .catch((error) => {})
+        .finally(() => {
+          setLoadingPage(false)
+          setTag('')
+        })
+    }
+  }, [tag])
 
   return (
     <Spin spinning={loadingPage}>
       <CCard className="mb-4">
-        <CCardHeader style={{ marginBottom: '10px' }}>News List</CCardHeader>
+        <CCardHeader
+          style={{
+            marginBottom: '10px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingBlock: '12px',
+          }}
+        >
+          <p style={{ fontSize: '20px', marginBlock: 'auto' }}>News List</p>
+
+          <CButton
+            size="sm"
+            onClick={() => {
+              setModalOpen(true)
+              formNews.resetFields()
+              setIsTypeAdd(true)
+              setImageUrl('')
+              setImgFile('')
+            }}
+          >
+            Tambah Data Baru
+          </CButton>
+        </CCardHeader>
 
         <TableListNews
           data={dataTable}
           setModalOpen={setModalOpen}
           setDataModal={setDataModal}
           formNews={formNews}
+          setIsTypeAdd={setIsTypeAdd}
+          isTypeAdd={isTypeAdd}
+          totalData={totalData}
+          setTotalData={setTotalData}
+          page={page}
+          setPage={setPage}
+          pageLimit={pageLimit}
+          setPageLimit={setPageLimit}
+          setImageUrl={setImageUrl}
+          setImgFile={setImgFile}
         />
 
         <FormNews
@@ -143,6 +184,12 @@ const News = () => {
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
           dataModal={dataModal}
+          isTypeAdd={isTypeAdd}
+          dataCategories={dataCategories}
+          setImageUrl={setImageUrl}
+          setLoadingPage={setLoadingPage}
+          imgFile={imgFile}
+          setTag={setTag}
         />
       </CCard>
 
@@ -154,6 +201,8 @@ const News = () => {
           setModalOpen={setModalOpen}
           setDataModal={setDataModal}
           formNews={formNews}
+          isTypeAdd={isTypeAdd}
+          setIsTypeAdd={setIsTypeAdd}
         />
       </CCard>
     </Spin>

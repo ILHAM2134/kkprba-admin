@@ -1,11 +1,9 @@
-import { cilInbox } from '@coreui/icons'
-import CIcon from '@coreui/icons-react'
-import { CCardBody, CCardHeader, CCardFooter, CButton } from '@coreui/react'
-import { Form, Input, Checkbox, Select, Upload, Modal } from 'antd'
+import { CCardBody } from '@coreui/react'
+import { Form, Input, Checkbox, Select, Upload, Modal, notification } from 'antd'
 import ReactQuill from 'react-quill'
-import { DocsLink } from 'src/components'
 import 'react-quill/dist/quill.snow.css'
 import { useEffect } from 'react'
+import { axios } from 'src/utils'
 
 const FormNews = ({
   formNews,
@@ -17,27 +15,126 @@ const FormNews = ({
   modalOpen,
   setModalOpen,
   dataModal,
+  isTypeAdd,
+  dataCategories,
+  setImageUrl,
+  setLoadingPage,
+  imgFile,
+  setTag,
 }) => {
   useEffect(() => {
     formNews.setFieldValue('title', dataModal?.title)
     formNews.setFieldValue('short_title', dataModal?.short_title)
     formNews.setFieldValue('description', dataModal?.description)
     formNews.setFieldValue('is_carousel', dataModal?.is_carousel)
-    formNews.setFieldValue('categories', dataModal?.categories)
+    formNews.setFieldValue(
+      'categories',
+      dataModal?.categories?.map((item) => item?.id),
+    )
     formNews.setFieldValue('title', dataModal?.title)
+    setImageUrl(dataModal?.image)
   }, [dataModal])
 
-  const onFinish = (values) => {}
+  const onFinish = (values) => {
+    console.log({ values })
+
+    var bodyFormData = new FormData()
+
+    bodyFormData.append('title', values?.title)
+    bodyFormData.append('short_title', values?.short_title)
+    bodyFormData.append('description', values?.description)
+    bodyFormData.append('is_carousel', values?.is_carousel ? 1 : 0)
+    bodyFormData.append('categories', values?.categories?.join(','))
+    if (imgFile) {
+      bodyFormData.append('image', imgFile)
+    }
+
+    setLoadingPage(true)
+
+    if (isTypeAdd) {
+      axios
+        .post('/blog', bodyFormData, {
+          headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
+        })
+        .then((res) => {
+          notification.success({
+            key: 'successCreateNews',
+            message: 'Success create news',
+          })
+        })
+        .catch((error) => error)
+        .finally(() => {
+          setLoadingPage(false)
+          setModalOpen(false)
+          setTag('fetch')
+        })
+    } else {
+      axios
+        .put(`/blog/${dataModal?.key ?? 0}`, bodyFormData, {
+          headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
+        })
+        .then((res) => {
+          notification.success({
+            key: 'successCreateNews',
+            message: 'Success create news',
+          })
+        })
+        .catch((error) => error)
+        .finally(() => {
+          setLoadingPage(false)
+          setModalOpen(false)
+          setTag('fetch')
+        })
+    }
+  }
 
   return (
-    <Modal open={modalOpen} onCancel={() => setModalOpen(false)} okText="Save">
+    <Modal
+      title={
+        <p style={{ marginBottom: '20px', fontSize: '20px', fontWeight: '600px' }}>
+          {isTypeAdd ? 'Tambah Data' : 'Edit Data'}
+        </p>
+      }
+      open={modalOpen}
+      onCancel={() => setModalOpen(false)}
+      okText="Save"
+      onOk={() => formNews.submit()}
+    >
       <CCardBody>
         <Form form={formNews} layout="vertical" onFinish={onFinish}>
-          <Form.Item name="title" label="Title">
+          <Form.Item
+            name="title"
+            label="Title"
+            rules={[
+              {
+                required: true,
+                message: 'Title is required',
+              },
+              {
+                min: 5,
+                max: 50,
+                message: 'Text must be 5 - 50 characters',
+              },
+            ]}
+          >
             <Input placeholder="Input Title Here" />
           </Form.Item>
 
-          <Form.Item name="short_title" label="Short Title">
+          <Form.Item
+            name="short_title"
+            label="Short Title"
+            rules={[
+              {
+                required: true,
+                message: 'Short title is required',
+              },
+              {
+                min: 5,
+                max: 20,
+                message: 'Text must be 5 - 20 characters',
+              },
+            ]}
+          >
             <Input placeholder="Input Short Title Here" />
           </Form.Item>
 
@@ -46,7 +143,7 @@ const FormNews = ({
               placeholder="Input Description Here"
               theme="snow"
               modules={modules}
-              onChange={(e) => console.log(e)}
+              onChange={(e) => {}}
             />
           </Form.Item>
 
@@ -54,19 +151,34 @@ const FormNews = ({
             <Checkbox>Check if your news includes in carousel</Checkbox>
           </Form.Item>
 
-          <Form.Item name="categories" label="Categories">
+          <Form.Item
+            name="categories"
+            label="Categories"
+            rules={[
+              {
+                required: true,
+                message: 'Title is required',
+              },
+            ]}
+          >
             <Select
               mode="multiple"
               placeholder="Select Categories here"
-              options={[
-                { value: 1, label: 'categories 1' },
-                { value: 2, label: 'categories 2' },
-                { value: 3, label: 'categories 3' },
-              ]}
+              options={dataCategories?.map((item) => ({ value: item?.id, label: item?.name }))}
             />
           </Form.Item>
 
-          <Form.Item name="image" label="Image">
+          <Form.Item
+            name="image"
+            label="Image"
+            valuePropName="file"
+            rules={[
+              {
+                required: isTypeAdd,
+                message: 'Image is required',
+              },
+            ]}
+          >
             <Upload
               name="avatar"
               listType="picture-card"

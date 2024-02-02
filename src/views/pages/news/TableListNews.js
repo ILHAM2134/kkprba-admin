@@ -2,13 +2,27 @@ import React from 'react'
 import { Space, Table, Tag } from 'antd'
 import { CButton } from '@coreui/react'
 
-const TableListNews = ({ data, setModalOpen, setDataModal, formNews }) => {
+const TableListNews = ({
+  data,
+  setModalOpen,
+  setDataModal,
+  formNews,
+  isTypeAdd,
+  setIsTypeAdd,
+  totalData,
+  setTotalData,
+  page,
+  setPage,
+  pageLimit,
+  setPageLimit,
+  setImageUrl,
+  setImgFile,
+}) => {
   const columns = [
     {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      render: (text) => <a>{text}</a>,
     },
     {
       title: 'Short Title',
@@ -19,11 +33,6 @@ const TableListNews = ({ data, setModalOpen, setDataModal, formNews }) => {
       title: 'Is Carousel',
       dataIndex: 'is_carousel',
       key: 'is_carousel',
-    },
-    {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
     },
     {
       title: 'Categories',
@@ -53,8 +62,10 @@ const TableListNews = ({ data, setModalOpen, setDataModal, formNews }) => {
           <CButton
             size="sm"
             onClick={() => {
+              console.log({ record })
               setModalOpen(true)
               setDataModal(record)
+              setIsTypeAdd(false)
             }}
           >
             Edit
@@ -72,19 +83,19 @@ const TableListNews = ({ data, setModalOpen, setDataModal, formNews }) => {
       <Table
         columns={columns}
         dataSource={data}
-        footer={(e) => {
-          return (
-            <CButton
-              size="sm"
-              onClick={() => {
-                setModalOpen(true)
-                formNews.resetFields()
-              }}
-            >
-              Tambah Data Baru
-            </CButton>
-          )
-        }}
+        // pagination={{
+        //   total: totalData,
+        //   showSizeChanger: true,
+        //   pageSizeOptions: ['10', '20', '50'],
+        //   current: page,
+        //   pageSize: pageLimit,
+        // }}
+        // onChange={(pagination, filters, sorter, extra) => {
+        //   if (extra?.action === 'paginate') {
+        //     setPage(pagination?.current)
+        //     setPageLimit(pagination?.pageSize)
+        //   }
+        // }}
         scroll={{ y: '500px' }}
       />
     </div>
