@@ -26,13 +26,13 @@ const FormNewsCategories = ({
 
     if (isTypeAdd) {
       axios
-        .post('/blog-category', bodyFormData, {
+        .post('/regulation-category', bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success create Regulation',
           })
         })
         .catch((error) => error)
@@ -43,13 +43,13 @@ const FormNewsCategories = ({
         })
     } else {
       axios
-        .put(`/blog-category/${dataModal?.id ?? 0}`, bodyFormData, {
+        .put(`/regulation-category/${dataModal?.id ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success edit Regulation',
           })
         })
         .catch((error) => error)

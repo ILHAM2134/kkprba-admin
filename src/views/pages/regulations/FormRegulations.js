@@ -53,13 +53,13 @@ const FormNews = ({
 
     if (isTypeAdd) {
       axios
-        .post('/blog', bodyFormData, {
+        .post('/regulation', bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success create Regulation',
           })
         })
         .catch((error) => error)
@@ -70,13 +70,13 @@ const FormNews = ({
         })
     } else {
       axios
-        .put(`/blog/${dataModal?.key ?? 0}`, bodyFormData, {
+        .put(`/regulation/${dataModal?.key ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success Edit Regulation',
           })
         })
         .catch((error) => error)

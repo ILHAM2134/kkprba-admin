@@ -17,7 +17,7 @@ const ModalConfirmDelete = ({
       .then((res) => {
         notification.success({
           key: 'successCreateNews',
-          message: 'Success delete news',
+          message: 'Success delete Category',
         })
       })
       .catch((error) => error)

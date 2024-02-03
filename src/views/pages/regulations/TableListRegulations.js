@@ -49,7 +49,7 @@ const TableListNews = ({
               color = 'volcano'
             }
             return (
-              <Tag color={color} key={tag?.id}>
+              <Tag color={color} key={tag?.id} style={{ marginBlock: '5px' }}>
                 {tag?.name?.toUpperCase()}
               </Tag>
             )

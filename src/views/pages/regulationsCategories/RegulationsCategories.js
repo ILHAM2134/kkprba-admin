@@ -12,7 +12,6 @@ const RegulationsCategory = () => {
   const [formNews] = Form.useForm()
   const [loadingPage, setLoadingPage] = useState(false)
 
-  const [dataTable, setDataTable] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [dataModal, setDataModal] = useState({})
 
@@ -31,7 +30,7 @@ const RegulationsCategory = () => {
     if (tag === 'fetch') {
       setLoadingPage(true)
 
-      axios('/blog-category')
+      axios('/regulation-category')
         .then((res) => {
           if (res.status === 200) {
             setDataCategories(res?.data?.data || [])
@@ -58,7 +57,7 @@ const RegulationsCategory = () => {
               paddingBlock: '12px',
             }}
           >
-            <p style={{ fontSize: '20px', marginBlock: 'auto' }}>Categories List</p>
+            <p style={{ fontSize: '20px', marginBlock: 'auto' }}>Categories List (Regulations)</p>
 
             <CButton
               size="sm"
@@ -68,7 +67,7 @@ const RegulationsCategory = () => {
                 setIsTypeAdd(true)
               }}
             >
-              Add New Categories
+              Add New Categories (Regulations)
             </CButton>
           </CCardHeader>
 

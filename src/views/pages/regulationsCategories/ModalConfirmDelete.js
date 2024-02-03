@@ -13,11 +13,11 @@ const ModalConfirmDelete = ({
     setLoadingPage(true)
 
     axios
-      .delete(`/blog-category/${dataModal?.id}`)
+      .delete(`/regulation-category/${dataModal?.id}`)
       .then((res) => {
         notification.success({
           key: 'successCreateNews',
-          message: 'Success delete news',
+          message: 'Success delete Regulation',
         })
       })
       .catch((error) => error)

@@ -5,9 +5,8 @@ import { CButton, CCard, CCardHeader } from '@coreui/react'
 import { Form, Spin, message } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { axios } from 'src/utils'
-import FormNews from './FormNews'
-import TableListNews from './TableListNews'
-import TableListCategories from './TableListCategories'
+import FormRegulations from './FormRegulations'
+import TableListRegulations from './TableListRegulations'
 import ModalConfirmDelete from './ModalConfirmDelete'
 
 const modules = {
@@ -26,7 +25,7 @@ const getBase64 = (img, callback) => {
   reader.readAsDataURL(img)
 }
 
-const Regulations = () => {
+const News = () => {
   const [formNews] = Form.useForm()
   const [loadingPage, setLoadingPage] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -157,11 +156,11 @@ const Regulations = () => {
                 setImgFile('')
               }}
             >
-              Add News Categories
+              Add Regulations Lists
             </CButton>
           </CCardHeader>
 
-          <TableListNews
+          <TableListRegulations
             data={dataTable}
             setModalOpen={setModalOpen}
             setDataModal={setDataModal}
@@ -180,7 +179,7 @@ const Regulations = () => {
             setModalDeleteOpen={setModalDeleteOpen}
           />
 
-          <FormNews
+          <FormRegulations
             formNews={formNews}
             modules={modules}
             uploadButton={uploadButton}
@@ -211,4 +210,4 @@ const Regulations = () => {
   )
 }
 
-export default Regulations
+export default News

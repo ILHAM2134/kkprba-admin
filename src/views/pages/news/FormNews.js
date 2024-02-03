@@ -76,7 +76,7 @@ const FormNews = ({
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success edit news',
           })
         })
         .catch((error) => error)

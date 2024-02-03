@@ -58,7 +58,7 @@ const NewsCategories = () => {
               paddingBlock: '12px',
             }}
           >
-            <p style={{ fontSize: '20px', marginBlock: 'auto' }}>Categories List</p>
+            <p style={{ fontSize: '20px', marginBlock: 'auto' }}>Categories List (News)</p>
 
             <CButton
               size="sm"
@@ -68,7 +68,7 @@ const NewsCategories = () => {
                 setIsTypeAdd(true)
               }}
             >
-              Add New Categories
+              Add New Categories (News)
             </CButton>
           </CCardHeader>
 

@@ -32,7 +32,7 @@ const FormNewsCategories = ({
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success create Category',
           })
         })
         .catch((error) => error)
@@ -49,7 +49,7 @@ const FormNewsCategories = ({
         .then((res) => {
           notification.success({
             key: 'successCreateNews',
-            message: 'Success create news',
+            message: 'Success edit Category',
           })
         })
         .catch((error) => error)

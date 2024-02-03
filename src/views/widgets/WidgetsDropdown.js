@@ -13,7 +13,7 @@ import { CChartBar, CChartLine } from '@coreui/react-chartjs'
 import CIcon from '@coreui/icons-react'
 import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
 
-const WidgetsDropdown = () => {
+const WidgetsDropdown = ({ dataDashboard }) => {
   return (
     <CRow>
       <CCol sm={6} lg={3}>
@@ -22,13 +22,13 @@ const WidgetsDropdown = () => {
           color="primary"
           value={
             <>
-              26K{' '}
-              <span className="fs-6 fw-normal">
+              {dataDashboard?.total}{' '}
+              {/* <span className="fs-6 fw-normal">
                 (-12.4% <CIcon icon={cilArrowBottom} />)
-              </span>
+              </span> */}
             </>
           }
-          title="Users"
+          title="User's Visit Total"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
@@ -103,6 +103,7 @@ const WidgetsDropdown = () => {
           }
         />
       </CCol>
+
       <CCol sm={6} lg={3}>
         <CWidgetStatsA
           className="mb-4"
@@ -189,6 +190,7 @@ const WidgetsDropdown = () => {
           }
         />
       </CCol>
+
       <CCol sm={6} lg={3}>
         <CWidgetStatsA
           className="mb-4"
@@ -262,6 +264,7 @@ const WidgetsDropdown = () => {
           }
         />
       </CCol>
+
       <CCol sm={6} lg={3}>
         <CWidgetStatsA
           className="mb-4"
