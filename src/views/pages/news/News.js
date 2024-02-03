@@ -98,7 +98,7 @@ const News = () => {
     if (tag === 'fetch') {
       setLoadingPage(true)
 
-      axios(`https://www.backend.kkprba.com/api/blog`)
+      axios(`/blog`)
         .then((res) => {
           const data = res?.data?.data?.map((item) => ({
             key: item?.id,
@@ -117,7 +117,7 @@ const News = () => {
           setLoadingPage(false)
         })
 
-      axios('https://www.backend.kkprba.com/api/blog-category')
+      axios('/blog-category')
         .then((res) => {
           if (res.status === 200) {
             setDataCategories(res?.data?.data || [])

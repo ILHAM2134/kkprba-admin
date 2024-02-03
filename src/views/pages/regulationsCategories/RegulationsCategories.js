@@ -30,7 +30,7 @@ const RegulationsCategory = () => {
     if (tag === 'fetch') {
       setLoadingPage(true)
 
-      axios('/api/regulation-category')
+      axios('/regulation-category')
         .then((res) => {
           if (res.status === 200) {
             setDataCategories(res?.data?.data || [])

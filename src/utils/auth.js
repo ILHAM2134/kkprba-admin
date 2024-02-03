@@ -7,7 +7,7 @@ export const axios = Axios.create({
   // if axios is called client side add /api to make Next's rewrites work
   // if axios is called server side then call API directly
     // ...(IS_SERVER ? { baseURL: process.env.REACT_APP_API } : { baseURL: '/api' }),
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : process.env.REACT_APPS_URL_DEV ,
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://www.backend.kkprba.com/api' : process.env.REACT_APPS_URL_DEV ,
   timeout: Number(process.env.REACT_APP_TIMEOUT),
   headers: {
     'Content-Type': 'application/json',
