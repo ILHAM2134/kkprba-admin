@@ -56,5 +56,5 @@
     "node": ">=10",
     "npm": ">=6"
   },
-  "proxy": "https://www.backend.kkprba.com/api"
+  "proxy": "https://www.backend.kkprba.com"
 }

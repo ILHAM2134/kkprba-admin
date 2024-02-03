@@ -98,7 +98,7 @@ const News = () => {
     if (tag === 'fetch') {
       setLoadingPage(true)
 
-      axios('/api/blog')
+      axios('/blog')
         .then((res) => {
           const data = res?.data?.data?.map((item) => ({
             key: item?.id,
