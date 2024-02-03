@@ -99,7 +99,7 @@ axios.interceptors.response.use(
 
 export const checkIfTokenIsValid = async () => {
   try {
-    const res = await axios('/blog')
+    const res = await axios('https://www.backend.kkprba.com/api/blog')
 
     const status = await res.status
 
