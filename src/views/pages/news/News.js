@@ -117,7 +117,7 @@ const News = () => {
           setLoadingPage(false)
         })
 
-      axios('/blog-category')
+      axios('https://www.backend.kkprba.com/api/blog-category')
         .then((res) => {
           if (res.status === 200) {
             setDataCategories(res?.data?.data || [])
