@@ -29,8 +29,8 @@ const RegulationsCategory = () => {
   useEffect(() => {
     if (tag === 'fetch') {
       setLoadingPage(true)
-
-      axios('/regulation-category')
+      let gg = process.env.NODE_ENV === 'production' ? process.env.REACT_APPS_URL_PROD : process.env.REACT_APPS_URL_DEV
+      axios(gg + '/regulation-category')
         .then((res) => {
           if (res.status === 200) {
             setDataCategories(res?.data?.data || [])
