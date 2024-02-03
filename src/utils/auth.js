@@ -11,6 +11,7 @@ export const axios = Axios.create({
   timeout: Number(process.env.REACT_APP_TIMEOUT),
   headers: {
     'Content-Type': 'application/json',
+    'Accept': 'application/json',
   },
 })
 

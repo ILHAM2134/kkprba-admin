@@ -98,7 +98,7 @@ const News = () => {
     if (tag === 'fetch') {
       setLoadingPage(true)
 
-      axios(`https://www.backend.kkprba.com/api/blog}`)
+      axios(`https://www.backend.kkprba.com/api/blog`)
         .then((res) => {
           const data = res?.data?.data?.map((item) => ({
             key: item?.id,
