@@ -1,8 +1,0 @@
-{
-    "rewrites": [
-      {
-        "source": ":source*/api/:path*",
-        "destination": "https://www.backend.kkprba.com/api/:path*"
-      }
-    ]
-  }
