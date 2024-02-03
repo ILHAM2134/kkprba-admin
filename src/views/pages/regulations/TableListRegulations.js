@@ -65,7 +65,6 @@ const TableListNews = ({
           <CButton
             size="sm"
             onClick={() => {
-              console.log({ record })
               setModalOpen(true)
               setDataModal(record)
               setIsTypeAdd(false)

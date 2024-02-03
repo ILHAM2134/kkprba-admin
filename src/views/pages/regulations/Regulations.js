@@ -195,6 +195,7 @@ const News = () => {
             setLoadingPage={setLoadingPage}
             imgFile={imgFile}
             setTag={setTag}
+            dataTable={dataTable}
           />
         </CCard>
       </Spin>

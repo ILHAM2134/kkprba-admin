@@ -180,6 +180,7 @@ const News = () => {
           />
 
           <FormNews
+            dataTable={dataTable}
             formNews={formNews}
             modules={modules}
             uploadButton={uploadButton}

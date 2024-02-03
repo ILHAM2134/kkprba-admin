@@ -1,8 +1,8 @@
 import { CCardBody } from '@coreui/react'
-import { Form, Input, Checkbox, Select, Upload, Modal, notification } from 'antd'
+import { Form, Input, Checkbox, Select, Upload, Modal, notification, Tooltip } from 'antd'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { axios } from 'src/utils'
 
 const FormNews = ({
@@ -21,7 +21,10 @@ const FormNews = ({
   setLoadingPage,
   imgFile,
   setTag,
+  dataTable,
 }) => {
+  const [isCarouselDisable, setIsCarouselDisable] = useState(false)
+
   useEffect(() => {
     formNews.setFieldValue('title', dataModal?.title)
     formNews.setFieldValue('short_title', dataModal?.short_title)
@@ -33,11 +36,13 @@ const FormNews = ({
     )
     formNews.setFieldValue('title', dataModal?.title)
     setImageUrl(dataModal?.image)
-  }, [dataModal])
+
+    const isCarouselLength = dataTable?.filter((item) => item?.is_carousel === '1')?.length
+
+    setIsCarouselDisable(isCarouselLength >= 3)
+  }, [dataModal, dataTable])
 
   const onFinish = (values) => {
-    console.log({ values })
-
     var bodyFormData = new FormData()
 
     bodyFormData.append('title', values?.title)
@@ -147,9 +152,16 @@ const FormNews = ({
             />
           </Form.Item>
 
-          <Form.Item name="is_carousel" label="Carousel" valuePropName="checked">
-            <Checkbox>Check if your news includes in carousel</Checkbox>
-          </Form.Item>
+          <Tooltip
+            placement="left"
+            title={isTypeAdd && isCarouselDisable ? 'carousel maksimal 3' : ''}
+          >
+            <Form.Item name="is_carousel" label="Carousel" valuePropName="checked">
+              <Checkbox disabled={isTypeAdd && isCarouselDisable}>
+                Check if your news includes in carousel
+              </Checkbox>
+            </Form.Item>
+          </Tooltip>
 
           <Form.Item
             name="categories"
