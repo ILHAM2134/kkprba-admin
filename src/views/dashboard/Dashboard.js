@@ -43,6 +43,9 @@ import {
   cilUser,
   cilUserFemale,
 } from '@coreui/icons'
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { checkIfTokenIsValid } from 'src/utils'
+import { notification } from 'antd'
 
 import avatar1 from 'src/assets/images/avatars/1.jpg'
 import avatar2 from 'src/assets/images/avatars/2.jpg'
@@ -123,6 +126,26 @@ const Dashboard = () => {
         })
     }
   }, [tag])
+
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const isTokenValid = await checkIfTokenIsValid()
+
+      if (isTokenValid !== 200) {
+        notification.error({
+          key: 'invalidToken',
+          message: 'Sesion anda berakhir, silahkan login ulang',
+        })
+
+        navigate('/login')
+      }
+    }
+
+    checkToken()
+  }, [location])
 
   const tableExample = [
     {
