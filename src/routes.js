@@ -5,7 +5,12 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
 const News = React.lazy(() => import('./views/pages/news/News'))
+const NewsCategories = React.lazy(() => import('./views/pages/newsCategories/NewsCategories'))
+
 const Regulations = React.lazy(() => import('./views/pages/regulations/Regulations'))
+const RegulationsCategories = React.lazy(() =>
+  import('./views/pages/regulationsCategories/RegulationsCategories'),
+)
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -99,7 +104,13 @@ const routes = [
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
   { path: '/news', name: 'News', element: News },
+  { path: '/news-categories', name: 'News Categories', element: NewsCategories },
   { path: '/regulations', name: 'Regulations', element: Regulations },
+  {
+    path: '/regulations-categories',
+    name: 'Regulations Categories',
+    element: RegulationsCategories,
+  },
 ]
 
 export default routes

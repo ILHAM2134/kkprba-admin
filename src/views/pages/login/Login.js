@@ -40,12 +40,7 @@ const Login = () => {
           })
         }
       })
-      .catch((error) => {
-        notification.error({
-          key: 'loginFailed',
-          message: error?.response?.data?.message,
-        })
-      })
+      .catch((error) => {})
       .finally(() => {
         setLoading(false)
       })

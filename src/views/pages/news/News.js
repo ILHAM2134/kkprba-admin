@@ -7,7 +7,7 @@ import { LoadingOutlined, PlusOutlined } from '@ant-design/icons'
 import { axios } from 'src/utils'
 import FormNews from './FormNews'
 import TableListNews from './TableListNews'
-import TableListCategories from './TableListCategories'
+import ModalConfirmDelete from './ModalConfirmDelete'
 
 const modules = {
   toolbar: [
@@ -33,6 +33,8 @@ const News = () => {
   const [dataTable, setDataTable] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [dataModal, setDataModal] = useState({})
+
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false)
 
   const [dataCategories, setDataCategories] = useState([])
   const [isTypeAdd, setIsTypeAdd] = useState(true)
@@ -130,82 +132,81 @@ const News = () => {
   }, [tag])
 
   return (
-    <Spin spinning={loadingPage}>
-      <CCard className="mb-4">
-        <CCardHeader
-          style={{
-            marginBottom: '10px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            paddingBlock: '12px',
-          }}
-        >
-          <p style={{ fontSize: '20px', marginBlock: 'auto' }}>News List</p>
-
-          <CButton
-            size="sm"
-            onClick={() => {
-              setModalOpen(true)
-              formNews.resetFields()
-              setIsTypeAdd(true)
-              setImageUrl('')
-              setImgFile('')
+    <>
+      <Spin spinning={loadingPage}>
+        <CCard className="mb-4">
+          <CCardHeader
+            style={{
+              marginBottom: '10px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingBlock: '12px',
             }}
           >
-            Tambah Data Baru
-          </CButton>
-        </CCardHeader>
+            <p style={{ fontSize: '20px', marginBlock: 'auto' }}>News List</p>
 
-        <TableListNews
-          data={dataTable}
-          setModalOpen={setModalOpen}
-          setDataModal={setDataModal}
-          formNews={formNews}
-          setIsTypeAdd={setIsTypeAdd}
-          isTypeAdd={isTypeAdd}
-          totalData={totalData}
-          setTotalData={setTotalData}
-          page={page}
-          setPage={setPage}
-          pageLimit={pageLimit}
-          setPageLimit={setPageLimit}
-          setImageUrl={setImageUrl}
-          setImgFile={setImgFile}
-        />
+            <CButton
+              size="sm"
+              onClick={() => {
+                setModalOpen(true)
+                formNews.resetFields()
+                setIsTypeAdd(true)
+                setImageUrl('')
+                setImgFile('')
+              }}
+            >
+              Add News Lists
+            </CButton>
+          </CCardHeader>
 
-        <FormNews
-          formNews={formNews}
-          modules={modules}
-          uploadButton={uploadButton}
-          imageUrl={imageUrl}
-          beforeUpload={beforeUpload}
-          handleChange={handleChange}
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-          dataModal={dataModal}
-          isTypeAdd={isTypeAdd}
-          dataCategories={dataCategories}
-          setImageUrl={setImageUrl}
-          setLoadingPage={setLoadingPage}
-          imgFile={imgFile}
-          setTag={setTag}
-        />
-      </CCard>
+          <TableListNews
+            data={dataTable}
+            setModalOpen={setModalOpen}
+            setDataModal={setDataModal}
+            formNews={formNews}
+            setIsTypeAdd={setIsTypeAdd}
+            isTypeAdd={isTypeAdd}
+            totalData={totalData}
+            setTotalData={setTotalData}
+            page={page}
+            setPage={setPage}
+            pageLimit={pageLimit}
+            setPageLimit={setPageLimit}
+            setImageUrl={setImageUrl}
+            setImgFile={setImgFile}
+            modalDeleteOpen={modalDeleteOpen}
+            setModalDeleteOpen={setModalDeleteOpen}
+          />
 
-      <CCard className="mb-4">
-        <CCardHeader style={{ marginBottom: '10px' }}>Categories List</CCardHeader>
+          <FormNews
+            formNews={formNews}
+            modules={modules}
+            uploadButton={uploadButton}
+            imageUrl={imageUrl}
+            beforeUpload={beforeUpload}
+            handleChange={handleChange}
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            dataModal={dataModal}
+            isTypeAdd={isTypeAdd}
+            dataCategories={dataCategories}
+            setImageUrl={setImageUrl}
+            setLoadingPage={setLoadingPage}
+            imgFile={imgFile}
+            setTag={setTag}
+          />
+        </CCard>
+      </Spin>
 
-        <TableListCategories
-          data={dataCategories}
-          setModalOpen={setModalOpen}
-          setDataModal={setDataModal}
-          formNews={formNews}
-          isTypeAdd={isTypeAdd}
-          setIsTypeAdd={setIsTypeAdd}
-        />
-      </CCard>
-    </Spin>
+      <ModalConfirmDelete
+        modalDeleteOpen={modalDeleteOpen}
+        setModalDeleteOpen={setModalDeleteOpen}
+        dataModal={dataModal}
+        setLoadingPage={setLoadingPage}
+        setTag={setTag}
+      />
+    </>
   )
 }
 

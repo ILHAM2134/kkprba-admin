@@ -13,7 +13,7 @@ const ModalConfirmDelete = ({
     setLoadingPage(true)
 
     axios
-      .delete(`/blog/${dataModal?.id}`)
+      .delete(`/blog-category/${dataModal?.id}`)
       .then((res) => {
         notification.success({
           key: 'successCreateNews',
@@ -40,12 +40,10 @@ const ModalConfirmDelete = ({
     >
       <CCardBody>
         <p>
-          You are about to delete news with the title
+          You are about to delete categories with the name
           <span style={{ color: 'red' }}>
             &nbsp;'
-            {dataModal?.short_title?.length > 15
-              ? dataModal?.short_title?.slice(0, 15) + '...'
-              : dataModal?.short_title}
+            {dataModal?.name?.length > 15 ? dataModal?.name?.slice(0, 15) + '...' : dataModal?.name}
             &nbsp;'
           </span>
           are you sure?
