@@ -106,6 +106,7 @@ const routes = [
   { path: '/news', name: 'News', element: News },
   { path: '/news-categories', name: 'News Categories', element: NewsCategories },
   { path: '/regulations', name: 'Regulations', element: Regulations },
+  { path: '/api/regulations', name: 'Regulations', element: Regulations },
   {
     path: '/regulations-categories',
     name: 'Regulations Categories',
