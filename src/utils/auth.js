@@ -6,8 +6,8 @@ const IS_BROWSER = typeof window !== 'undefined'
 export const axios = Axios.create({
   // if axios is called client side add /api to make Next's rewrites work
   // if axios is called server side then call API directly
-  //   ...(IS_SERVER ? { baseURL: process.env.REACT_APP_API } : { baseURL: '/api' }),
-  baseURL: process.env.NODE_ENV === 'production' ? process.env.REACT_APPS_URL_PROD : process.env.REACT_APPS_URL_DEV,
+    // ...(IS_SERVER ? { baseURL: process.env.REACT_APP_API } : { baseURL: '/api' }),
+  baseURL: process.env.NODE_ENV === 'production' ? process.env.REACT_APPS_URL_PROD : process.env.REACT_APPS_URL_DEV + '/api',
   timeout: Number(process.env.REACT_APP_TIMEOUT),
   headers: {
     'Content-Type': 'application/json',
