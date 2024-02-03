@@ -99,7 +99,7 @@ axios.interceptors.response.use(
 
 export const checkIfTokenIsValid = async () => {
   try {
-    const res = await axios('/api/blog')
+    const res = await axios('/blog')
 
     const status = await res.status
 
