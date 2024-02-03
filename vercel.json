@@ -1,8 +1,8 @@
 {
-    "rewrites": [
-      {
-        "source": "/*",
-        "destination": "https://www.backend.kkprba.com/api/*"
-      }
-    ]
-  }
+  "rewrites": [
+    {
+      "source": "/*",
+      "destination": "https://www.backend.kkprba.com/api/*"
+    }
+  ]
+}
