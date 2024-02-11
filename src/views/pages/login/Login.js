@@ -4,6 +4,8 @@ import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } 
 import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
+import cookie from "react-cookie";
+
 const Login = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
@@ -25,6 +27,8 @@ const Login = () => {
         if (res?.status === 200) {
           setStatus(res?.status)
 
+          cookie.set("token", res?.data?.data?.token, { path: "/" });
+          
           dispatch({
             type: 'set',
             dataUser: {
