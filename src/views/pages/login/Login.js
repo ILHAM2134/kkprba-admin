@@ -27,7 +27,7 @@ const Login = () => {
         if (res?.status === 200) {
           setStatus(res?.status)
 
-          cookie.set("token", res?.data?.data?.token, { path: "/" });
+          cookie.set("token", res?.data?.data?.token, { path: "/", expires: res?.data?.data?.expires_in});
           
           dispatch({
             type: 'set',
