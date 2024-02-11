@@ -29,7 +29,7 @@ const Login = () => {
 
           console.log(res?.data?.data?.token)
           console.log(res?.data?.data?.expires_in)
-          cookie.set("token", res?.data?.data?.token, { path: "/", sameSite: "lax", expires: res?.data?.data?.expires_in});
+          cookie.set("token", res?.data?.data?.token, { path: "/", sameSite: "lax", expires: 3600, secure: true, httpOnly: true });
           
           dispatch({
             type: 'set',
