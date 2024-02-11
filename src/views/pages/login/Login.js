@@ -4,7 +4,7 @@ import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } 
 import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
-import cookie from "react-cookie";
+import cookie from "js-cookie";
 
 const Login = () => {
   const [form] = Form.useForm()
