@@ -4,8 +4,6 @@ import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } 
 import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
-import Cookies from 'universal-cookie';
-
 const Login = () => {
   const [form] = Form.useForm()
   const dispatch = useDispatch()
@@ -26,10 +24,6 @@ const Login = () => {
       .then((res) => {
         if (res?.status === 200) {
           setStatus(res?.status)
-          
-          const cookies = new Cookies();
-          cookies.set('token', res?.data?.data?.token, { path: '/' });
-          console.log(cookies.get('token')); // Pacman
 
           dispatch({
             type: 'set',
