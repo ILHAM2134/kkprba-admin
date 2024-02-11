@@ -12,8 +12,7 @@ export const axios = Axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-  },
-  withCredentials: true,
+  }
 })
 
 const getShownMessage = (error) => {
