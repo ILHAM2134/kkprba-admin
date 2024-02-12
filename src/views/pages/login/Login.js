@@ -4,7 +4,7 @@ import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } 
 import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
-import cookie from "js-cookie";
+// import cookie from "js-cookie";
 
 const Login = () => {
   const [form] = Form.useForm()
@@ -29,7 +29,7 @@ const Login = () => {
 
           console.log(res?.data?.data?.token)
           console.log(res?.data?.data?.expires_in)
-          cookie.set("token", res?.data?.data?.token, { path: "/", sameSite: "lax", expires: 3600, secure: true, httpOnly: true });
+          // cookie.set("token", res?.data?.data?.token, { path: "/", sameSite: "lax", expires: 3600, secure: true, httpOnly: true });
           
           dispatch({
             type: 'set',
