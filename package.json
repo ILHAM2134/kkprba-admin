@@ -2,7 +2,8 @@
   "name": "@coreui/coreui-free-react-admin-template",
   "version": "4.5.0",
   "description": "CoreUI Free React Admin Template",
-  "homepage": ".",
+  "homepage": "http://localhost:3000",
+  "proxy": "https://www.backend.kkprba.com/api",
   "license": "MIT",
   "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
   "scripts": {
@@ -55,6 +56,5 @@
   "engines": {
     "node": ">=10",
     "npm": ">=6"
-  },
-  "proxy": "https://www.backend.kkprba.com/api"
+  }
 }
