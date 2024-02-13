@@ -74,6 +74,7 @@ const FormNews = ({
           setTag('fetch')
         })
     } else {
+      bodyFormData.append('_method', 'PUT')
       axios
         .put(`/blog/${dataModal?.key ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
