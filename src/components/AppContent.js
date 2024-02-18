@@ -25,7 +25,9 @@ const AppContent = () => {
       }
     }
 
-    checkToken()
+    setTimeout(() => {
+      checkToken()
+    }, 10000)
   }, [location])
 
   return (

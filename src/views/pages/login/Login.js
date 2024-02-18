@@ -4,6 +4,9 @@ import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } 
 import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
+
+import loginIllustration from '../../../assets/images/login-illustration.jpg'
+
 // import cookie from "js-cookie";
 
 const Login = () => {
@@ -29,8 +32,7 @@ const Login = () => {
 
           console.log(res?.data?.data?.token)
           console.log(res?.data?.data?.expires_in)
-          // cookie.set("token", res?.data?.data?.token, { path: "/", sameSite: "lax", expires: 3600, secure: true, httpOnly: true });
-          
+
           dispatch({
             type: 'set',
             dataUser: {
@@ -62,9 +64,16 @@ const Login = () => {
           <CCol md={8}>
             <Spin spinning={loading}>
               <CCardGroup>
-                <CCard className="p-4">
-                  <CCardBody>
-                    <CForm>
+                <CCard style={{ border: 'none' }}>
+                  <CCardBody
+                    style={{
+                      // border: '1px solid black',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <CForm style={{ width: '100%', paddingLeft: '20px' }}>
                       <h1>Login</h1>
 
                       <p className="text-medium-emphasis">Sign In to your account</p>
@@ -113,9 +122,14 @@ const Login = () => {
                   </CCardBody>
                 </CCard>
 
-                <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+                <CCard className="text-white py-5" style={{ width: '44%', border: 'none' }}>
                   <CCardBody className="text-center">
-                    <div>
+                    <img
+                      src={loginIllustration}
+                      alt="login illustration"
+                      style={{ width: '100%' }}
+                    />
+                    {/* <div>
                       <h2>Sign up</h2>
 
                       <p>
@@ -128,7 +142,7 @@ const Login = () => {
                           Register Now!
                         </CButton>
                       </Link>
-                    </div>
+                    </div> */}
                   </CCardBody>
                 </CCard>
               </CCardGroup>
