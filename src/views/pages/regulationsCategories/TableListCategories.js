@@ -15,7 +15,7 @@ const TableListCategories = ({
       title: 'Category Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (text) => <p>{text}</p>,
     },
     {
       title: 'Action',
