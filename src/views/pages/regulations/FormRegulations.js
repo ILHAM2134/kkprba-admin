@@ -1,8 +1,8 @@
 import { CCardBody } from '@coreui/react'
-import { Form, Input, Checkbox, Select, Upload, Modal, notification, Tooltip } from 'antd'
+import { Form, Input, Select, Upload, Modal, notification } from 'antd'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { axios } from 'src/utils'
 
 const FormNews = ({
@@ -23,8 +23,6 @@ const FormNews = ({
   setTag,
   dataTable,
 }) => {
-  const [isCarouselDisable, setIsCarouselDisable] = useState(false)
-
   useEffect(() => {
     formNews.setFieldValue('title', dataModal?.title)
     formNews.setFieldValue('short_title', dataModal?.short_title)
@@ -36,10 +34,6 @@ const FormNews = ({
     )
     formNews.setFieldValue('title', dataModal?.title)
     setImageUrl(dataModal?.image)
-
-    const isCarouselLength = dataTable?.filter((item) => item?.is_carousel === '1')?.length
-
-    setIsCarouselDisable(isCarouselLength >= 3)
   }, [dataModal, dataTable])
 
   const onFinish = (values) => {
@@ -61,7 +55,7 @@ const FormNews = ({
         .post('/regulation', bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success create Regulation',
@@ -79,7 +73,7 @@ const FormNews = ({
         .post(`/regulation/${dataModal?.key ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success Edit Regulation',
@@ -149,20 +143,9 @@ const FormNews = ({
               placeholder="Input Description Here"
               theme="snow"
               modules={modules}
-              onChange={(e) => {}}
+              onChange={() => {}}
             />
           </Form.Item>
-
-          <Tooltip
-            placement="left"
-            title={isTypeAdd && isCarouselDisable ? 'carousel maksimal 3' : ''}
-          >
-            <Form.Item name="is_carousel" label="Carousel" valuePropName="checked">
-              <Checkbox disabled={isTypeAdd && isCarouselDisable}>
-                Check if your news includes in carousel
-              </Checkbox>
-            </Form.Item>
-          </Tooltip>
 
           <Form.Item
             name="categories"

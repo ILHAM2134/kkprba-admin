@@ -61,9 +61,16 @@ const getShownMessage = (error) => {
   }
 }
 
+axios.interceptors.request.use(function (config) {
+  const token = window.sessionStorage.getItem('token')
+  config.headers.Authorization = token ? `Bearer ${token}` : ''
+  return config
+})
+
 axios.interceptors.response.use(
   (res) => res,
   (error) => {
+    console.log({ error })
     if (!error?.response) {
       notification.destroy('error')
       return notification.error({
@@ -95,21 +102,15 @@ axios.interceptors.response.use(
           description: getShownMessage(error)?.description,
           key: 'error',
         })
+      } else if (error?.response?.data?.message === 'Unauthenticated.') {
+        notification.error({
+          message: 'Silahkan Login dengan username dan password yang benar',
+          description: getShownMessage(error)?.description,
+          key: 'error',
+        })
       }
     }
 
     return Promise.reject(error)
   },
 )
-
-export const checkIfTokenIsValid = async () => {
-  try {
-    const res = await axios('https://www.backend.kkprba.com/api/blog')
-
-    const status = await res.status
-
-    return status
-  } catch (e) {
-    console.log({ e })
-  }
-}

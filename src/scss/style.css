@@ -1,0 +1,21 @@
+@media only screen and (max-width: 600px) {
+  .under-600px-none {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 770px) {
+  .over-770px-none {
+    display: none;
+  }
+}
+
+.cwidget-stats-a {
+  min-width: 300px;
+}
+
+@media only screen and (max-width: 770px) {
+  .cwidget-stats-a {
+    width: 100%;
+  }
+}

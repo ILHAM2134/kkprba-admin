@@ -12,7 +12,6 @@ const NewsCategories = () => {
   const [formNews] = Form.useForm()
   const [loadingPage, setLoadingPage] = useState(false)
 
-  const [dataTable, setDataTable] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [dataModal, setDataModal] = useState({})
 
@@ -22,10 +21,6 @@ const NewsCategories = () => {
   const [isTypeAdd, setIsTypeAdd] = useState(true)
 
   const [tag, setTag] = useState('fetch')
-
-  const [totalData, setTotalData] = useState(0)
-  const [page, setPage] = useState(1)
-  const [pageLimit, setPageLimit] = useState(10)
 
   useEffect(() => {
     if (tag === 'fetch') {
@@ -37,7 +32,7 @@ const NewsCategories = () => {
             setDataCategories(res?.data?.data || [])
           }
         })
-        .catch((error) => {})
+        .catch(() => {})
         .finally(() => {
           setLoadingPage(false)
           setTag('')

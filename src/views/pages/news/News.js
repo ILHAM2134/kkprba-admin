@@ -112,7 +112,7 @@ const News = () => {
 
           setDataTable(data || [])
         })
-        .catch((error) => {})
+        .catch(() => {})
         .finally(() => {
           setLoadingPage(false)
         })
@@ -123,7 +123,7 @@ const News = () => {
             setDataCategories(res?.data?.data || [])
           }
         })
-        .catch((error) => {})
+        .catch(() => {})
         .finally(() => {
           setLoadingPage(false)
           setTag('')
@@ -196,6 +196,7 @@ const News = () => {
             setLoadingPage={setLoadingPage}
             imgFile={imgFile}
             setTag={setTag}
+            loadingPage={loadingPage}
           />
         </CCard>
       </Spin>

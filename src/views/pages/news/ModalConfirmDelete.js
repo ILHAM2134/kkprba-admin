@@ -14,7 +14,7 @@ const ModalConfirmDelete = ({
 
     axios
       .delete(`/blog/${dataModal?.id}`)
-      .then((res) => {
+      .then(() => {
         notification.success({
           key: 'successCreateNews',
           message: 'Success delete news',

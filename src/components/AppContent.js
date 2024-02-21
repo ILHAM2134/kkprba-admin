@@ -1,34 +1,44 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense, useLayoutEffect } from 'react'
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { CContainer, CSpinner } from '@coreui/react'
 
-// routes config
 import routes from '../routes'
-import { checkIfTokenIsValid } from 'src/utils'
+import { axios } from 'src/utils'
 import { notification } from 'antd'
 
+const listPath = routes?.map((item) => item?.path)
+
 const AppContent = () => {
-  const navigate = useNavigate()
   const location = useLocation()
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    const checkToken = async () => {
-      const isTokenValid = await checkIfTokenIsValid()
+  useLayoutEffect(() => {
+    const token = window.sessionStorage.getItem('token')
 
-      if (isTokenValid !== 200) {
-        notification.error({
-          key: 'invalidToken',
-          message: 'Sesion anda berakhir, silahkan login ulang',
+    if (token) {
+      axios('https://www.backend.kkprba.com/api/dashboard')
+        .then((res) => {
+          if (res?.status !== 200) {
+            navigate('/login')
+          } else {
+            if (!listPath?.includes(location.pathname)) {
+              navigate('/dashboard')
+            }
+          }
         })
+        .catch(() => {
+          navigate('/login')
+        })
+        .finally(() => {})
+    } else {
+      navigate('/login')
 
-        navigate('/login')
-      }
+      notification.error({
+        key: 'tokenUndefined',
+        message: 'Session Anda telah habis, silahkan Login ulang',
+      })
     }
-
-    setTimeout(() => {
-      checkToken()
-    }, 10000)
-  }, [location])
+  }, [location?.pathname])
 
   return (
     <CContainer lg>

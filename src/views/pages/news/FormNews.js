@@ -22,6 +22,7 @@ const FormNews = ({
   imgFile,
   setTag,
   dataTable,
+  loadingPage,
 }) => {
   const [isDisableCarousel, setIsDisableCarousel] = useState(false)
 
@@ -61,16 +62,18 @@ const FormNews = ({
         .post('/blog', bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success create news',
           })
+
+          setModalOpen(false)
         })
         .catch((error) => error)
         .finally(() => {
           setLoadingPage(false)
-          setModalOpen(false)
+
           setTag('fetch')
         })
     } else {
@@ -79,16 +82,18 @@ const FormNews = ({
         .post(`/blog/${dataModal?.key ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success edit news',
           })
+
+          setModalOpen(false)
         })
         .catch((error) => error)
         .finally(() => {
           setLoadingPage(false)
-          setModalOpen(false)
+
           setTag('fetch')
         })
     }
@@ -98,13 +103,15 @@ const FormNews = ({
     <Modal
       title={
         <p style={{ marginBottom: '20px', fontSize: '20px', fontWeight: '600px' }}>
-          {isTypeAdd ? 'Tambah Data' : 'Edit Data'}
+          {isTypeAdd ? 'Add News' : 'Edit News'}
         </p>
       }
       open={modalOpen}
       onCancel={() => setModalOpen(false)}
       okText="Save"
       onOk={() => formNews.submit()}
+      okButtonProps={{ loading: loadingPage, disabled: loadingPage }}
+      cancelButtonProps={{ loading: loadingPage, disabled: loadingPage }}
     >
       <CCardBody>
         <Form form={formNews} layout="vertical" onFinish={onFinish}>
@@ -149,7 +156,7 @@ const FormNews = ({
               placeholder="Input Description Here"
               theme="snow"
               modules={modules}
-              onChange={(e) => {}}
+              onChange={() => {}}
             />
           </Form.Item>
 

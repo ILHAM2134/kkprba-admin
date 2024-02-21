@@ -2,25 +2,7 @@ import React from 'react'
 import { Space, Table, Tag } from 'antd'
 import { CButton } from '@coreui/react'
 
-const TableListNews = ({
-  data,
-  setModalOpen,
-  setDataModal,
-  formNews,
-  isTypeAdd,
-  setIsTypeAdd,
-  totalData,
-  setTotalData,
-  page,
-  setPage,
-  pageLimit,
-  setPageLimit,
-  setImageUrl,
-  setImgFile,
-
-  modalDeleteOpen,
-  setModalDeleteOpen,
-}) => {
+const TableListNews = ({ data, setModalOpen, setDataModal, setIsTypeAdd, setModalDeleteOpen }) => {
   const columns = [
     {
       title: 'Title',
@@ -33,9 +15,16 @@ const TableListNews = ({
       key: 'short_title',
     },
     {
-      title: 'Is Carousel',
+      title: 'Carousel',
       dataIndex: 'is_carousel',
       key: 'is_carousel',
+      render: (_, record) => {
+        return record?.is_carousel === '1' ? (
+          <Tag color="green-inverse">Yes</Tag>
+        ) : (
+          <Tag color="red-inverse">No</Tag>
+        )
+      },
     },
     {
       title: 'Categories',
@@ -106,7 +95,7 @@ const TableListNews = ({
         //     setPageLimit(pagination?.pageSize)
         //   }
         // }}
-        scroll={{ y: '500px' }}
+        scroll={{ y: '500px', x: '700px' }}
       />
     </div>
   )

@@ -1,12 +1,11 @@
 import React from 'react'
-import { Space, Table, Tag } from 'antd'
+import { Space, Table } from 'antd'
 import { CButton } from '@coreui/react'
 
 const TableListCategories = ({
   data,
   setModalOpen,
   setDataModal,
-  formNews,
   setModalDeleteOpen,
   setIsTypeAdd,
 }) => {

@@ -7,7 +7,7 @@ import {
   cilApplicationsSettings,
   cilGrain,
 } from '@coreui/icons'
-import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { CNavItem } from '@coreui/react'
 
 const _nav = [
   {

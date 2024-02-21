@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import React, { useLayoutEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { CButton, CCard, CCardBody, CCardGroup, CCol, CContainer, CForm, CRow } from '@coreui/react'
-import { useDispatch } from 'react-redux'
 import { Form, Input, Spin, notification } from 'antd'
 import { axios } from 'src/utils'
 
 import loginIllustration from '../../../assets/images/login-illustration.jpg'
+import routes from 'src/routes'
 
-// import cookie from "js-cookie";
+const listPath = routes?.map((item) => item?.path)
 
 const Login = () => {
   const [form] = Form.useForm()
-  const dispatch = useDispatch()
-  const [status, setStatus] = useState(0)
+
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
 
@@ -28,18 +29,13 @@ const Login = () => {
       })
       .then((res) => {
         if (res?.status === 200) {
-          setStatus(res?.status)
+          window.sessionStorage.setItem('token', res?.data?.data?.token)
+          window.sessionStorage.setItem('expires_in', res?.data?.data?.expires_in)
 
-          console.log(res?.data?.data?.token)
-          console.log(res?.data?.data?.expires_in)
+          window.sessionStorage.setItem('name', res?.data?.data?.user?.name)
+          window.sessionStorage.setItem('username', res?.data?.data?.user?.username)
 
-          dispatch({
-            type: 'set',
-            dataUser: {
-              name: res?.data?.data?.user?.name,
-              username: res?.data?.data?.user?.username,
-            },
-          })
+          navigate('/')
 
           notification.success({
             key: 'loginSuccess',
@@ -47,15 +43,35 @@ const Login = () => {
           })
         }
       })
-      .catch((error) => {})
+      .catch(() => {})
       .finally(() => {
         setLoading(false)
       })
   }
 
-  if (status === 200) {
-    return <Navigate to="/dashboard" replace />
-  }
+  useLayoutEffect(() => {
+    const token = window.sessionStorage.getItem('token')
+
+    if (token) {
+      axios('https://www.backend.kkprba.com/api/dashboard')
+        .then((res) => {
+          if (res?.status !== 200) {
+            navigate('/login')
+          } else {
+            if (!listPath?.includes(location.pathname)) {
+              navigate('/dashboard')
+            }
+          }
+        })
+        .catch(() => {})
+        .finally(() => {})
+    } else {
+      notification.error({
+        key: 'tokenUndefined',
+        message: 'Session Anda telah habis, silahkan Login ulang',
+      })
+    }
+  }, [])
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -67,7 +83,6 @@ const Login = () => {
                 <CCard style={{ border: 'none' }}>
                   <CCardBody
                     style={{
-                      // border: '1px solid black',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -122,27 +137,16 @@ const Login = () => {
                   </CCardBody>
                 </CCard>
 
-                <CCard className="text-white py-5" style={{ width: '44%', border: 'none' }}>
+                <CCard
+                  className="text-white py-5 md:hidden under-600px-none"
+                  style={{ width: '44%', border: 'none' }}
+                >
                   <CCardBody className="text-center">
                     <img
                       src={loginIllustration}
                       alt="login illustration"
                       style={{ width: '100%' }}
                     />
-                    {/* <div>
-                      <h2>Sign up</h2>
-
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
-                      </p>
-
-                      <Link to="/login">
-                        <CButton color="primary" className="mt-3" active tabIndex={-1}>
-                          Register Now!
-                        </CButton>
-                      </Link>
-                    </div> */}
                   </CCardBody>
                 </CCard>
               </CCardGroup>

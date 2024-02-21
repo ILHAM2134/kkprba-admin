@@ -14,7 +14,7 @@ const ModalConfirmDelete = ({
 
     axios
       .delete(`/regulation-category/${dataModal?.id}`)
-      .then((res) => {
+      .then(() => {
         notification.success({
           key: 'successCreateNews',
           message: 'Success delete Regulation',

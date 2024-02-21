@@ -29,7 +29,7 @@ const FormNewsCategories = ({
         .post('/regulation-category', bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success create Regulation',
@@ -46,7 +46,7 @@ const FormNewsCategories = ({
         .put(`/regulation-category/${dataModal?.id ?? 0}`, bodyFormData, {
           headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
         })
-        .then((res) => {
+        .then(() => {
           notification.success({
             key: 'successCreateNews',
             message: 'Success edit Regulation',
