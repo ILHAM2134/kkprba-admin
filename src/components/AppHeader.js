@@ -41,7 +41,6 @@ import navigation from '../_nav'
 const AppHeader = () => {
   const [visible, setVisible] = useState(false)
 
-  console.log({ navigation })
   return (
     <CHeader position="sticky mb-5">
       <CContainer fluid>
