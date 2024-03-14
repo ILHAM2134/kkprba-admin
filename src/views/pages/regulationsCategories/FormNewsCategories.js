@@ -18,9 +18,9 @@ const FormNewsCategories = ({
   }, [dataModal])
 
   const onFinish = (values) => {
-    var bodyFormData = new FormData()
-
-    bodyFormData.append('name', values?.name)
+    var bodyFormData = {
+      name: values?.name,
+    }
 
     setLoadingPage(true)
 
@@ -43,9 +43,7 @@ const FormNewsCategories = ({
         })
     } else {
       axios
-        .put(`/regulation-category/${dataModal?.id ?? 0}`, bodyFormData, {
-          headers: { 'Content-Type': `multipart/form-data; boundary=${bodyFormData._boundary}` },
-        })
+        .put(`/regulation-category/${dataModal?.id ?? 0}`, bodyFormData)
         .then(() => {
           notification.success({
             key: 'successCreateNews',
@@ -85,8 +83,8 @@ const FormNewsCategories = ({
               },
               {
                 min: 5,
-                max: 50,
-                message: 'Text must be 5 - 50 characters',
+                max: 20,
+                message: 'Text must be 5 - 20 characters',
               },
             ]}
           >
